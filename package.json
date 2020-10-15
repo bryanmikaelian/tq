@@ -1,0 +1,24 @@
+{
+  "name": "tq",
+  "version": "1.0.0-alpha.0",
+  "description": "A simple queue.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "yarn run tsc",
+    "test": "yarn run tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bryanmikaelian/tq.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bryanmikaelian/tq/issues"
+  },
+  "homepage": "https://github.com/bryanmikaelian/tq#readme",
+  "devDependencies": {
+    "typescript": "^4.0.3"
+  }
+}
