@@ -3,8 +3,9 @@
   "version": "1.0.0-alpha.0",
   "description": "A simple queue.",
   "main": "dist/index.js",
+  "types": "lib/global.d.ts",
   "scripts": {
-    "build": "yarn run tsc",
+    "build": "yarn clean && ./node_modules/.bin/webpack",
     "test": "yarn run tsc --noEmit",
     "clean": "rm -rf dist"
   },
@@ -19,6 +20,15 @@
   },
   "homepage": "https://github.com/bryanmikaelian/tq#readme",
   "devDependencies": {
-    "typescript": "^4.0.3"
+    "@types/webpack": "^4.41.22",
+    "prettier": "2.1.2",
+    "ts-loader": "^8.0.5",
+    "typescript": "^4.0.3",
+    "webpack": "^5.1.1",
+    "webpack-cli": "^4.0.0",
+    "worker-loader": "^3.0.4"
+  },
+  "dependencies": {
+    "dexie": "^3.0.2"
   }
 }
