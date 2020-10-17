@@ -2,9 +2,8 @@ import { Ack, Job, JobStatus, Message, Perform, Work } from "./types";
 import DB from "./db";
 
 const MAX_WORK = 10;
-
 const REGISTERED_JOBS: Record<string, Job> = {};
-const ctx: Worker = self as any;
+const ctx: Worker = globalThis as any;
 const db = new DB();
 
 /**

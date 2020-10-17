@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "yarn clean && ./node_modules/.bin/webpack",
-    "test": "yarn run tsc --noEmit",
+    "test": "jest",
     "clean": "rm -rf dist"
   },
   "repository": {
@@ -20,8 +20,11 @@
   },
   "homepage": "https://github.com/bryanmikaelian/tq#readme",
   "devDependencies": {
+    "@types/jest": "^26.0.14",
     "@types/webpack": "^4.41.22",
+    "jest": "^26.5.3",
     "prettier": "2.1.2",
+    "ts-jest": "^26.4.1",
     "ts-loader": "^8.0.5",
     "typescript": "^4.0.3",
     "webpack": "^5.1.1",

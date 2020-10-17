@@ -11,9 +11,7 @@ export const register = (job: Job): void => {
   const args = {
     ...job,
     perform: job.perform.toString(),
-    onRegister: "",
   };
-  console.log("registering", job.name);
   worker.postMessage({
     event: "register",
     args,
