@@ -1,6 +1,5 @@
-import Dexie from "dexie";
-import { Ack, Job, JobPriority, JobStatus, Message, Perform } from "./types";
-import DB, { Work } from "./db";
+import { Ack, Job, JobStatus, Message, Perform, Work } from "./types";
+import DB from "./db";
 
 const MAX_WORK = 10;
 
@@ -12,7 +11,7 @@ const db = new DB();
  * Handler for receiving messages from the main thread.
  * @param e
  */
-ctx.onmessage = (e: MessageEvent<Message<unknown>>) => {
+ctx.onmessage = (e: MessageEvent<Message>) => {
   console.log("message received", e);
   if (typeof e.data !== "object") {
     return;

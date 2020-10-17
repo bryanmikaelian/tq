@@ -1,6 +1,5 @@
 import QueueWorker from "./queue.worker";
 import { Ack, Job } from "./types";
-import DB from "./db";
 
 const worker = new QueueWorker();
 
@@ -45,11 +44,19 @@ export const enqueue = (
   }
 };
 
+/**
+ * Handler for when the worker sends messages to the main thread
+ * @param e
+ */
 worker.onmessage = (e: MessageEvent<unknown>) => {
   console.log("message from worker received", e);
   if (typeof e.data !== "object") {
     return;
   }
+
+  const isAck = (message: object) => {
+    return "event" in message && "success" in message;
+  };
 
   if (!isAck(e.data)) {
     return;
@@ -59,12 +66,3 @@ worker.onmessage = (e: MessageEvent<unknown>) => {
 
   console.log("ack:", event);
 };
-
-const isAck = (message: object) => {
-  return "event" in message && "success" in message;
-};
-
-import loggerJob from "../examples/jobs/logger";
-
-register(loggerJob);
-enqueue(loggerJob.name, { color: "red" });

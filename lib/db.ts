@@ -1,7 +1,7 @@
 import Dexie from "dexie";
-import { JobPriority, JobStatus } from "./types";
+import { JobPriority, Work } from "./types";
 
-interface Jobs {
+interface RegisteredJob {
   name: string;
   priority: JobPriority;
   enabled: boolean;
@@ -9,20 +9,8 @@ interface Jobs {
   updatedAt: Date;
 }
 
-export interface Work {
-  jobName: string;
-  priority: JobPriority;
-  args: Record<string, unknown>;
-  createdAt: Date;
-  status: JobStatus;
-  ranAt?: Date;
-  failedAt?: Date;
-  message?: string;
-  retriesLeft?: number;
-}
-
 class TQ extends Dexie {
-  jobs: Dexie.Table<Jobs, number>;
+  jobs: Dexie.Table<RegisteredJob, number>;
   queue: Dexie.Table<Work, number>;
   constructor() {
     super("tq.database");
