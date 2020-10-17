@@ -9,17 +9,21 @@ interface Jobs {
   updatedAt: Date;
 }
 
-interface JobQueue {
+export interface Work {
   jobName: string;
   priority: JobPriority;
   args: Record<string, unknown>;
   createdAt: Date;
   status: JobStatus;
+  ranAt?: Date;
+  failedAt?: Date;
+  message?: string;
+  retriesLeft?: number;
 }
 
 class TQ extends Dexie {
   jobs: Dexie.Table<Jobs, number>;
-  queue: Dexie.Table<JobQueue, number>;
+  queue: Dexie.Table<Work, number>;
   constructor() {
     super("tq.database");
 

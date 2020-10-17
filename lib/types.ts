@@ -1,9 +1,7 @@
 /**
  * Context contains info about the job.  Set at queue time.
  */
-export interface Context {
-  queudAt: Date;
-}
+export interface Context {}
 /**
  * JobPriority indicates which queue this job should execute one.
  */
@@ -13,14 +11,18 @@ export type JobStatus = "queued" | "in-progress" | "complete" | "failed";
 
 type WorkerEvent = "register" | "enqueue";
 
+export type Perform = (
+  ctx: Context,
+  args: Record<string, unknown>
+) => Promise<void>;
+
 /**
  * Job represents a basic object that can perform some operation asynchronously.
  */
-export interface Job<T = Record<string, unknown>> {
+export interface Job {
   name: string;
   priority: JobPriority;
-  perform: (ctx: Context, args: T) => Promise<void>;
-  onRegister?: (ctx: Context) => void;
+  perform: Perform | string;
   retryOnError?: boolean;
 }
 

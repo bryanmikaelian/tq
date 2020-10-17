@@ -64,7 +64,7 @@ const isAck = (message: object) => {
   return "event" in message && "success" in message;
 };
 
-import loggerJob from "./jobs/logger";
+import loggerJob from "../examples/jobs/logger";
 
 register(loggerJob);
 enqueue(loggerJob.name, { color: "red" });
