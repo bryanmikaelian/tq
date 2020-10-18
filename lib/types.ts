@@ -59,11 +59,3 @@ export interface Message {
   jobName?: string;
   args?: Job | Record<string, unknown>;
 }
-
-/**
- * Ack is a message the worker will send when it receives a request.
- */
-export interface Ack {
-  event?: WorkerEvent;
-  success: boolean;
-}

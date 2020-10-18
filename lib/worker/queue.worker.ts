@@ -1,17 +1,13 @@
-import { Ack, Job, JobStatus, Message, Perform, Work } from "./types";
+import { Job, JobStatus, Message, Perform, Work } from "../types";
 import DB from "./db";
 
 const MAX_WORK = 10;
-const REGISTERED_JOBS: Record<string, Job> = {};
 const ctx: Worker = globalThis as any;
 const db = new DB();
+const REGISTERED_JOBS: Record<string, Job> = {};
 
-/**
- * Handler for receiving messages from the main thread.
- * @param e
- */
-ctx.onmessage = (e: MessageEvent<Message>) => {
-  console.log("message received", e);
+export const onMessageToWorker = (e: MessageEvent<Message>): Job => {
+  console.log("message from worker received", e);
   if (typeof e.data !== "object") {
     return;
   }
@@ -24,7 +20,7 @@ ctx.onmessage = (e: MessageEvent<Message>) => {
 
   if (event === "register" && isJob(args)) {
     const job = args as Job;
-    register(job).then(() => {});
+    register(job);
     return;
   }
 
@@ -43,24 +39,8 @@ ctx.onmessage = (e: MessageEvent<Message>) => {
  * Registers a job with the worker.  If a job is registered, it will be able to perform work
  * @param job
  */
-const register = async (job: Job) => {
+export const register = (job: Job) => {
   REGISTERED_JOBS[job.name] = job;
-
-  // Also store the job in IndexedDB
-  const success = await upsertJob(job);
-
-  if (!success) {
-    // De-register the job if we couldn't save to IndexedDB
-    delete REGISTERED_JOBS[job.name];
-  }
-
-  // Notify the main thread that the job registration is complete
-  const ack: Ack = {
-    event: "register",
-    success,
-  };
-
-  postMessage(ack);
 };
 
 /**
@@ -68,16 +48,8 @@ const register = async (job: Job) => {
  * @param job
  * @param args
  */
-const enqueue = async (job: Job, args: Record<string, unknown>) => {
-  const success = await insertInQueue(job, args);
-
-  // Notify the main thread that the job was queued
-  const ack: Ack = {
-    event: "enqueue",
-    success,
-  };
-
-  postMessage(ack);
+export const enqueue = async (job: Job, args: Record<string, unknown>) => {
+  await insertInQueue(job, args);
 };
 
 /**
@@ -86,40 +58,6 @@ const enqueue = async (job: Job, args: Record<string, unknown>) => {
  */
 const isJob = (args: object): boolean => {
   return "name" in args && "priority" in args && "perform" in args;
-};
-
-/**
- * Upsert the job in IndexedDB
- * @param job
- */
-const upsertJob = async (job: Job): Promise<boolean> => {
-  const record = {
-    name: job.name,
-    priority: job.priority,
-    enabled: true,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-
-  try {
-    const query = db.jobs.where("name").equals(record.name);
-    const existing = await query.first();
-
-    if (!existing) {
-      console.log("adding new job");
-      await db.jobs.add(record);
-      return true;
-    }
-
-    console.log("updating existing job");
-    delete record.createdAt;
-    await query.modify(record);
-
-    return true;
-  } catch (e) {
-    console.warn(e);
-    return false;
-  }
 };
 
 /**
@@ -253,6 +191,8 @@ const perform = async (work: Work) => {
     failedAt: new Date(),
   });
 };
+
+ctx.onmessage = onMessageToWorker;
 
 setInterval(async () => {
   await processWork();

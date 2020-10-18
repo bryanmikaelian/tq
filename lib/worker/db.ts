@@ -1,5 +1,5 @@
 import Dexie from "dexie";
-import { JobPriority, Work } from "./types";
+import { JobPriority, Work } from "../types";
 
 interface RegisteredJob {
   name: string;
