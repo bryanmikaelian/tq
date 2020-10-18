@@ -24,6 +24,7 @@
     "@types/jest": "^26.0.14",
     "@types/rewire": "^2.5.28",
     "@types/webpack": "^4.41.22",
+    "fake-indexeddb": "^3.1.2",
     "jest": "^26.5.3",
     "prettier": "2.1.2",
     "rewire": "^5.0.0",

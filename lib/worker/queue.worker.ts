@@ -47,6 +47,8 @@ export const register = (job: Job) => {
  * Queues a job, executing the work at a later date.
  * @param job
  * @param args
+ *
+ * @private
  */
 export const enqueue = async (job: Job, args: Record<string, unknown>) => {
   await insertInQueue(job, args);
@@ -64,8 +66,10 @@ const isJob = (args: object): boolean => {
  * Insert work in to the queue
  * @param job
  * @param args
+ *
+ * @private
  */
-const insertInQueue = async (
+export const insertInQueue = async (
   job: Job,
   args: Record<string, unknown>
 ): Promise<boolean> => {

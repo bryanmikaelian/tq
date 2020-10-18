@@ -1,8 +1,12 @@
 // @ts-ignore
+import { add } from "../db";
+import { JobStatus } from "../../types";
+jest.mock("../db");
 const w = jest.requireActual("../queue.worker");
 const { onMessageToWorker } = w;
 const register = jest.spyOn(w, "register");
 const enqueue = jest.spyOn(w, "enqueue");
+const insertInQueue = jest.spyOn(w, "insertInQueue");
 
 const job = {
   name: "test.job",
@@ -47,7 +51,29 @@ describe("queue.worker", () => {
       onMessageToWorker({
         data: { event: "enqueue", jobName: job.name, args: {} },
       });
+
       expect(enqueue).toBeCalled();
+      expect(insertInQueue).toBeCalledWith(job, {});
+      const args = add.mock.calls[0][0];
+      expect(args.jobName).toEqual(job.name);
+      expect(args.priority).toEqual(job.priority);
+      expect(args.args).toEqual({});
+      expect(args.status).toEqual("queued");
+      expect(args.createdAt).toBeDefined();
+      expect(insertInQueue).toReturn();
+    });
+
+    it("does not enqueue a job when indexeddb fails", () => {
+      add.mockImplementationOnce(() => {
+        throw new Error();
+      });
+      onMessageToWorker({
+        data: { event: "enqueue", jobName: job.name, args: {} },
+      });
+      expect(enqueue).toBeCalled();
+      expect(insertInQueue).toBeCalledWith(job, {});
+      expect(add).toBeCalled();
+      expect(insertInQueue).toReturn();
     });
   });
 
@@ -64,4 +90,6 @@ describe("queue.worker", () => {
       expect(enqueue).not.toBeCalled();
     });
   });
+
+  describe("processWork", () => {});
 });
