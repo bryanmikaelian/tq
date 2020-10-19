@@ -7,7 +7,7 @@ const worker = new QueueWorker();
  * Registers a job with the worker, allowing it to be called when it receives work.
  * @param job - The job to register.  After registration, the job's `onRegister` function will be called.
  */
-export const register = (job: Job): boolean => {
+const register = (job: Job): boolean => {
   const args = {
     ...job,
     perform: job.perform.toString(),
@@ -30,10 +30,7 @@ export const register = (job: Job): boolean => {
  * @param jobName
  * @param args
  */
-export const enqueue = (
-  jobName: string,
-  args: Record<string, unknown>
-): boolean => {
+const enqueue = (jobName: string, args: Record<string, unknown>): boolean => {
   try {
     console.log("enqueuing", jobName);
     worker.postMessage({
@@ -48,3 +45,5 @@ export const enqueue = (
     return false;
   }
 };
+
+export { register, enqueue };
