@@ -8,7 +8,8 @@
     "build": "yarn clean && ./node_modules/.bin/webpack",
     "test": "NODE_ENV=test jest --coverage",
     "ci": "NODE_ENV=test jest --ci --silent",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "release": "np"
   },
   "repository": {
     "type": "git",
