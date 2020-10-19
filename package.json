@@ -10,7 +10,7 @@
     "test": "NODE_ENV=test jest --coverage",
     "ci": "NODE_ENV=test jest --ci --silent",
     "clean": "rm -rf dist",
-    "release": "np"
+    "release": "yarn build && np"
   },
   "repository": {
     "type": "git",
