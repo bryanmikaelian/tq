@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "./dist"
+    "dist",
+    "lib/index.d.ts"
   ],
   "scripts": {
     "dev": "webpack --config webpack.dev.ts --watch",
