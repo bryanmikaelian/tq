@@ -14,7 +14,7 @@ npm i @iceblocktech/tq
 or
 
 ```
-yarn add @iceblocktech/tq`
+yarn add @iceblocktech/tq
 ```
 
 You can then import the API as follows:
