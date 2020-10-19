@@ -1,4 +1,7 @@
 # tq
+![npm](https://img.shields.io/npm/v/@iceblocktech/tq)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/bryanmikaelian/tq/CI)
+
 Queue backed by Indexeddb.  Inspired by Resque.  tq === "the queue"
 
 # About
