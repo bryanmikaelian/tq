@@ -1,6 +1,6 @@
 {
   "name": "@iceblocktech/tq",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.6",
   "description": "A simple queue, backed by indexeddb, for processing work in the background.  Inspired by Resque.",
   "main": "dist/index.js",
   "types": "lib/index.d.ts",
