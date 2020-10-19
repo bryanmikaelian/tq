@@ -8,6 +8,9 @@ const register = jest.spyOn(w, "register");
 const enqueue = jest.spyOn(w, "enqueue");
 const insertInQueue = jest.spyOn(w, "insertInQueue");
 
+// @ts-ignore
+global.setInterval = () => {};
+
 const job = {
   name: "test.job",
   priority: "low",

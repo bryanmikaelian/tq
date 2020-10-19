@@ -198,9 +198,11 @@ const perform = async (work: Work) => {
 
 ctx.onmessage = onMessageToWorker;
 
-setInterval(async () => {
-  await processWork();
-}, 10000);
+export const start = () => {
+  setInterval(async () => {
+    await processWork();
+  }, 10000);
+};
 
 // HACK: Only way TS Compiler can import a worker :shrug:
 export default null as any;

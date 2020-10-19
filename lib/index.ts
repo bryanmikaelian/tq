@@ -1,7 +1,8 @@
-import QueueWorker from "./worker/queue.worker";
+import QueueWorker, { start } from "./worker/queue.worker";
 import { Job } from "./types";
 
 const worker = new QueueWorker();
+start();
 
 /**
  * Registers a job with the worker, allowing it to be called when it receives work.
