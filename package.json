@@ -1,10 +1,12 @@
 {
   "name": "@iceblocktech/tq",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "A simple queue, backed by indexeddb, for processing work in the background.  Inspired by Resque.",
   "main": "dist/index.js",
   "types": "lib/index.d.ts",
-  "files": ["./dist"],
+  "files": [
+    "./dist"
+  ],
   "scripts": {
     "dev": "webpack --config webpack.dev.ts --watch",
     "build": "NODE_ENV=production yarn clean && webpack --config webpack.prod.ts",
