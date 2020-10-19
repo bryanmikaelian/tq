@@ -6,7 +6,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "dev": "webpack --config webpack.dev.ts --watch",
-    "build": "NODE_ENV=production yarn clean && webpack --config webpack.prod .ts",
+    "build": "NODE_ENV=production yarn clean && webpack --config webpack.prod.ts",
     "test": "NODE_ENV=test jest --coverage",
     "ci": "NODE_ENV=test jest --ci --silent",
     "clean": "rm -rf dist",
