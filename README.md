@@ -5,6 +5,24 @@ Queue backed by Indexeddb.  Inspired by Resque.  tq === "the queue"
 
 tq helps you run background jobs in the browser. Jobs and the queue are backed by Indexed DB and Web Workers, so you can run intensive operations without blocking the main thread.
 
+# Installing
+
+```
+npm i @iceblocktech/tq
+```
+
+or
+
+```
+yarn add @iceblocktech/tq`
+```
+
+You can then import the API as follows:
+
+```javascript
+import { register, enqueue } from '@iceblocktech/tq'
+```
+
 
 # Job Basics
 
