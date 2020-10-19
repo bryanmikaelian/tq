@@ -1,5 +1,5 @@
 {
-  "name": "tq",
+  "name": "@iceblocktech/tq",
   "version": "1.0.0-alpha.0",
   "description": "A simple queue, backed by indexeddb, for processing work in the background.  Inspired by Resque.",
   "main": "dist/index.js",
@@ -26,6 +26,7 @@
     "@types/webpack": "^4.41.22",
     "fake-indexeddb": "^3.1.2",
     "jest": "^26.5.3",
+    "np": "^6.5.0",
     "prettier": "2.1.2",
     "rewire": "^5.0.0",
     "ts-jest": "^26.4.1",
