@@ -4,6 +4,7 @@ const path = require("path");
 module.exports = {
   entry: {
     main: "./lib/index.ts",
+    worker: "./lib/worker/queue.worker.ts",
   },
   module: {
     rules: [
